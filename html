@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>Number Puzzle Game</title>
+
+<style>
+
+body {
+
+    font-family: "Andale Mono", monospace;
+
+    background-color:Pink;
+
+    cursor:default;
+
+}
+
+button {
+
+    cursor:pointer;
+
+}
+
+h1 {
+
+    font-size:30px;
+
+    color:black;
+
+    
+
+}
+
+.section {
+
+    text-align:center;
+
+    padding-top:30px;
+
+}
+
+.box {
+
+    width:40px;
+
+    height:40px;
+
+    text-align:center;
+
+    font-size:20px;
+
+    
+
+    border:1px Cyan;
+
+    
+
+    background-color:#00ffff;
+
+    
+
+    font-weight:bold;
+
+}
+
+.w2 {
+
+    width:93px;
+
+    margin-bottom:10px;
+
+}
+
+.notes {
+
+    width:190px;
+
+    height:auto;
+
+    
+
+    background-color:#0cf5af;
+
+    
+
+    border:none;
+
+    border-left:5px solid #770;
+
+}
+
+.copyright {
+
+    width:195px;
+
+    height:auto;
+
+    
+
+    background-color:#eaff00;
+
+    
+
+    border:none;
+
+    
+
+}
+
+.submit {
+
+    width:195px;
+
+    margin:10px 0px 10px 0px;
+
+}
+
+.row {
+
+    margin-left:0px;
+
+}
+
+.col {
+
+    margin-top:10px;
+
+}
+
+.input {
+
+    background-color:#ffff00;
+
+}
+
+.output {
+
+    background-color:#0cf5af;
+
+}
+
+.link {
+
+    color:blue;
+
+    text-decoration:underline;
+
+}
+
+</style>
+
+    </head>
+
+    <body>
+
+        <div class="section">
+
+       <div>
+
+           <h1>Number Puzzle</h1>
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="output box row" value="0" disabled>
+
+       </div> 
+
+       <div>
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="output box row" value="0" disabled>
+
+       </div> 
+
+       <div>
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="input box" type="text" pattern"\d*" maxLength="1" value="0" onblur="checkSums()">
+
+           <input class="output box row" value="0" disabled>
+
+       </div> 
+
+       <div class="outputs">       
+
+           <input class="output box col" value="0" disabled>
+
+           <input class="output box col" value="0" disabled>
+
+           <input class="output box col" value="0" disabled>
+
+           <button class="random box col row" onClick="random()">R</button>
+
+       </div>
+
+       <div>
+
+           <button class="submit box" onClick="submit()">Submit</button>
+
+       </div>
+
+       <div>
+
+           <button class="w2 box" onClick="help()">Help</button>
+
+           <button class="box w2" onclick="clearBoxes()">Clear</button>
+
+       </div>
+
+       <div>
+
+           <input class="notes" value=" -Numbers allowed: 1-9" disabled>
+
+       </div>
+
+       <div>
+
+           <input class="notes" value=" -Sums must all be 15" disabled>
+
+       </div>
+
+       <div>
+
+           <button class="copyright" onClick="copyright()"><marquee>Made by <span class="link">Chandu Vadde</span> 2021 </marquee></button> 
+
+       </div>
+
+        </div>
+
+<script>
+
+alert("There are at least 36 different possibilities.\nGood luck!");
+
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+function checkSums() {
+
+    /*
+
+    rows, 0-2:top>bottom
+
+    cols, 3-5:left>right
+
+    */
+
+    i = document.getElementsByClassName("input");
+
+    o = document.getElementsByClassName("output");
+
+    
+
+    //check for valid numbers
+
+    for(j = 0; j < i.length; j++)
+
+        if(isNaN(i[j].value))
+
+            i[j].value = 0;
+
+    
+
+    o[0].value = parseInt(i[0].value) + parseInt(i[1].value) + parseInt(i[2].value);
+
+    o[1].value = parseInt(i[3].value) + parseInt(i[4].value) + parseInt(i[5].value);
+
+    o[2].value = parseInt(i[6].value) + parseInt(i[7].value) + parseInt(i[8].value);
+
+    //195 627 843
+
+    o[3].value = parseInt(i[0].value) + parseInt(i[3].value) + parseInt(i[6].value);
+
+    o[4].value = parseInt(i[1].value) + parseInt(i[4].value) + parseInt(i[7].value);
+
+    o[5].value = parseInt(i[2].value) + parseInt(i[5].value) + parseInt(i[8].value);
+
+    
+
+    clearBoxes();
+
+}
+
+function help() {    
+
+    alert("Using the nine boxes, arrange the numbers from 1 to 9 in a way that their horizontal and vertical sums add up to 15. Each number can only be used once.");
+
+    alert("Press the 'R' button to randomize the boxes");
+
+    alert("Press the 'Clear' button to remove all green and red verifications");
+
+    alert("Press the 'Submit' button to verify your inputs");
+
+    alert("Good luck!");
+
+}
+
+function clearBoxes() {
+
+    i = document.getElementsByClassName("input");
+
+    o = document.getElementsByClassName("output");
+
+    
+
+    for(j = 0; j < o.length; j++)                    
+
+        o[j].style.backgroundColor = "#ccc";
+
+    for(j = 0; j < i.length; j++)                    
+
+        i[j].style.backgroundColor = "#eee";
+
+}
+
+function submit() {
+
+    var valid = isValid();
+
+    var correct = isCorrect();
+
+    if(valid && correct)
+
+        win();
+
+    else
+
+        lose();
+
+}
+
+function isCorrect() {
+
+    var correct = true;
+
+    //all must be 15
+
+    o = document.getElementsByClassName("output");
+
+    
+
+    for(j = 0; j < o.length; j++) {
+
+        o[j].style.backgroundColor = "#7f7";
+
+        if(parseInt(o[j].value)!==15) {
+
+            o[j].style.backgroundColor = "#f77";
+
+            correct = false;
+
+        }
+
+    }
+
+            
+
+    return correct;
+
+}
+
+function isValid() {
+
+    var valid = true;
+
+    var h = []; 
+
+    i = document.getElementsByClassName("input");
+
+    
+
+    for(a = 0; a < i.length; a++) { 
+
+        i[a].style.backgroundColor = "#7f7";
+
+        if(parseInt(i[a].value)===0) {
+
+            i[a].style.backgroundColor = "#f77";
+
+            valid = false;
+
+        }
+
+        for(b = 0; b < h.length; b++) {            
+
+            if(i[a].value==h[b]) {
+
+                i[a].style.backgroundColor = "#f77";
+
+                valid = false;
+
+            }
+
+                
+
+        }
+
+        h[a] = i[a].value;
+
+    }
+
+    return valid;
+
+}
+
+function random() {
+
+    shuffle();
+
+    i = document.getElementsByClassName("input");    
+
+    
+
+    for(j = 0; j < i.length; j++)
+
+        i[j].value = values[j];
+
+        
+
+    checkSums();    
+
+}
+
+function shuffle() {
+
+    var tempVar;
+
+    var j;
+
+    for(i=0; i < values.length; i++) {
+
+        j = rand(1, values.length-1);
+
+        tempVar = values[i];
+
+        values[i] = values[j];
+
+        values[j] = tempVar;
+
+    }
+
+}
+
+function win() {
+
+    alert("Congratulations! You solved the number puzzle.");
+
+    alert("Comment your winning code and see how unique you are from the rest.");
+
+}
+
+function lose() {
+
+    alert("The red boxes either have repeated numbers, or sums are not 15. Try again.")
+
+}
+
+function copyright() {
+
+    window.open('https://www.linkedin.com/in/chandu-vadde-065019193');
+
+}
+
+function rand(min, max) {
+
+    range = max - min;
+
+    return Math.round(Math.random()*range + min);
+
+}
+
+</script>
+
+    </body>
+
+</html>
